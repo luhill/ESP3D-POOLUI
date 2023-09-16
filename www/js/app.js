@@ -662,6 +662,7 @@ function initUI_4() {
     AddCmd(closeModal);
     AddCmd(show_main_UI);
   }
+  init_pool_panel();
 }
 
 function show_main_UI() {
@@ -771,6 +772,9 @@ function process_socket_response(msg) {
     }
     if (msg.startsWith("X:")) {
       process_Position(msg);
+    }
+    if(msg.startsWith('{"POOL":')){
+      pool_status_update(msg);
     }
     if (msg.startsWith("FR:")) {
       process_feedRate(msg);

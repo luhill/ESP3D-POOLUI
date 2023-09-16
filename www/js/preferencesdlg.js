@@ -4,6 +4,7 @@ var language_save = language;
 var default_preferenceslist = [];
 var defaultpreferenceslist = "[{\
                                             \"language\":\"en\",\
+                                            \"enable_pool_panel\":\"true\",\
                                             \"enable_lock_UI\":\"false\",\
                                             \"enable_ping\":\"true\",\
                                             \"enable_DHT\":\"false\",\
@@ -61,6 +62,7 @@ function initpreferences() {
     if ((target_firmware == "grbl-embedded") || (target_firmware == "grbl")) {
         defaultpreferenceslist = "[{\
                                             \"language\":\"en\",\
+                                            \"enable_pool_panel\":\"false\",\
                                             \"enable_lock_UI\":\"false\",\
                                             \"enable_ping\":\"true\",\
                                             \"enable_DHT\":\"false\",\
@@ -116,12 +118,14 @@ function initpreferences() {
         document.getElementById('DHT_pref_panel').style.display = 'none';
         document.getElementById('temp_pref_panel').style.display = 'none';
         document.getElementById('ext_pref_panel').style.display = 'none';
+        document.getElementById('pool_pref_panel').style.display = 'none';
         document.getElementById('grbl_pref_panel').style.display = 'block';
         document.getElementById('has_tft_sd').style.display = 'table-row';
         document.getElementById('has_tft_usb').style.display = 'table-row';
     } else {
         defaultpreferenceslist = "[{\
                                             \"language\":\"en\",\
+                                            \"enable_pool_panel\":\"true\",\
                                             \"enable_lock_UI\":\"false\",\
                                             \"enable_ping\":\"true\",\
                                             \"enable_DHT\":\"false\",\
@@ -179,6 +183,7 @@ function initpreferences() {
 
         document.getElementById('temp_pref_panel').style.display = 'block';
         document.getElementById('ext_pref_panel').style.display = 'block';
+        document.getElementById('pool_pref_panel').style.display = 'block';
         document.getElementById('grbl_pref_panel').style.display = 'none';
         document.getElementById('has_tft_sd').style.display = 'table-row';
         document.getElementById('has_tft_usb').style.display = 'table-row';
@@ -226,6 +231,9 @@ function prefs_toggledisplay(id_source, forcevalue) {
         document.getElementById(id_source).checked = forcevalue;
     }
     switch (id_source) {
+        case 'show_pool_panel':
+            //show and hide more detailed preferences if desired
+            break;
         case 'show_files_panel':
             if (document.getElementById(id_source).checked) document.getElementById("files_preferences").style.display = "block";
             else document.getElementById("files_preferences").style.display = "none";
@@ -291,6 +299,10 @@ function applypreferenceslist() {
     //Assign each control state
     translate_text(preferenceslist[0].language);
     build_HTML_setting_list(current_setting_filter);
+
+    if (preferenceslist[0].enable_pool_panel === 'true') document.getElementById('pool_panel').style.display = 'flex';
+    else document.getElementById('pool_panel').style.display = 'none';
+
     if (typeof document.getElementById('camtab') != "undefined") {
         var camoutput = false;
         if (typeof(preferenceslist[0].enable_camera) !== 'undefined') {
@@ -625,6 +637,10 @@ function build_dlg_preferences_list() {
     content += build_language_list("language_preferences");
     content += "</td></tr></table>";
     document.getElementById("preferences_langage_list").innerHTML = content;
+    //pool
+    if (typeof(preferenceslist[0].enable_pool_panel) !== 'undefined') {
+        document.getElementById('show_pool_panel').checked = (preferenceslist[0].enable_pool_panel === 'true');
+    } else document.getElementById('show_pool_panel').checked = false;
     //camera
     if (typeof(preferenceslist[0].enable_camera) !== 'undefined') {
         document.getElementById('show_camera_panel').checked = (preferenceslist[0].enable_camera === 'true');
@@ -860,6 +876,7 @@ function build_dlg_preferences_list() {
         document.getElementById('preferences_filters').value = String(default_preferenceslist[0].f_filters);
     }
 
+    prefs_toggledisplay('show_pool_panel');
     prefs_toggledisplay('show_camera_panel');
     prefs_toggledisplay('show_grbl_panel');
     prefs_toggledisplay('show_control_panel');
@@ -875,6 +892,7 @@ function closePreferencesDialog() {
     if (preferenceslist[0].length != 0) {
         //check dialog compare to global state
         if ((typeof(preferenceslist[0].language) === 'undefined') ||
+            (typeof(preferenceslist[0].enable_pool_panel) === 'undefined') ||
             (typeof(preferenceslist[0].enable_camera) === 'undefined') ||
             (typeof(preferenceslist[0].auto_load_camera) === 'undefined') ||
             (typeof(preferenceslist[0].camera_address) === 'undefined') ||
@@ -923,6 +941,8 @@ function closePreferencesDialog() {
             (typeof(preferenceslist[0].enable_commands_panel) === 'undefined')) {
             modified = true;
         } else {
+            //pool panel
+            if (document.getElementById('show_pool_panel').checked != (preferenceslist[0].enable_pool_panel === 'true')) modified = true;
             //camera
             if (document.getElementById('show_camera_panel').checked != (preferenceslist[0].enable_camera === 'true')) modified = true;
             //Autoload
@@ -1089,6 +1109,7 @@ function SavePreferences(current_preferences) {
         }
         preferenceslist = [];
         var saveprefs = "[{\"language\":\"" + language;
+        saveprefs += "\",\"enable_pool_panel\":\"" + document.getElementById('show_pool_panel').checked;
         saveprefs += "\",\"enable_camera\":\"" + document.getElementById('show_camera_panel').checked;
         saveprefs += "\",\"auto_load_camera\":\"" + document.getElementById('autoload_camera_panel').checked;
         saveprefs += "\",\"camera_address\":\"" + HTMLEncode(document.getElementById('preferences_camera_webaddress').value);

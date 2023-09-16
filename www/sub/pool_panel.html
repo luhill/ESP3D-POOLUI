@@ -1,0 +1,242 @@
+<div id="pool_panel" class="panel panel-default panel-flex-col panel-min-width">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <b><span>Pool Controls</span></b>
+                </div>
+                <div class="pull-right">
+                    <div class="panel-flex-row">
+                        <table class="checkbox">
+                            <tr>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>
+                                    <label>
+                                        <span>Date:</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="input-group">
+                            <tr>
+                                <td>
+                                    <input type="datetime-local" id="time_current" onf/>
+                                </td>
+                            </tr>
+                        </table>
+                        &nbsp;&nbsp;
+                        <button onclick="timeCurrent()" class="btn btn-danger">
+                            <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                <g transform="translate(50,1200) scale(1, -1)">
+                                    <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body panel-height panel-flex-main">
+        <ul class="list-group">
+            <li class="list-group-item"><!--table headings-->
+                <div class="row">
+                    <div class="col-md-4"><b><label translate>Name</label></b></div>
+                    <div class="col-md-8"><b><label translate>Options</label></b></div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Pumps-->
+                <div class="row">
+                    <div class="col-md-4"><span>Pumps</span></div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <span>Main</span>
+                            &nbsp;&nbsp;
+                            <label class="switch">
+                                <input type="checkbox" id="pump_on" onclick="pumpOn()">
+                                <span class="slider round"></span>
+                            </label>
+                            &nbsp;&nbsp;
+                            <span>Booster</span>
+                            &nbsp;&nbsp;
+                            <label class="switch">
+                                <input type="checkbox" id="booster_on" onclick="boosterOn()">
+                                <span class="slider round"></span>
+                            </label>
+                            &nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Auto mode settings-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <span>Auto</span>
+                        &nbsp;&nbsp;
+                        <label class="switch">
+                            <input type="checkbox" id="auto_on" onclick="autoOn()">
+                             <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <input type="time" id="time_start" step="60"/>
+                            &nbsp;
+                            <input type="time" id="time_stop"/> 
+                            &nbsp;&nbsp;
+                            <button onclick="setAutoTime()" class="btn btn-danger">
+                                <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                    <g transform="translate(50,1200) scale(1, -1)">
+                                        <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Chlorinator Duty-->
+                <div class="row">
+                    <div class="col-md-4"><span>Chlorinator (0-100%)</span></div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <label class="switch">
+                                <input type="checkbox" id="chlorine_on" onclick="chlorineOn()">
+                                <span class="slider round"></span>
+                            </label>
+                            &nbsp;&nbsp;
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="form-control w5" type="number" min="0" max="100" value=0 id="duty_chlorine"/>
+                                            <span class="input-group-addon hide_it"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="hide_it"></input>
+                                            <span class="input-group-addon form_control" translate>&#37;</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            &nbsp;&nbsp;
+                            <button onclick="dutyChlorine()" class="btn btn-danger">
+                                <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                    <g transform="translate(50,1200) scale(1, -1)">
+                                        <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Ionizer Duty-->
+                <div class="row">
+                    <div class="col-md-4"><span>Ionizer (0-100%)</span></div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <label class="switch">
+                                <input type="checkbox" id="ion_on" onclick="ionOn()">
+                                <span class="slider round"></span>
+                            </label>
+                            &nbsp;&nbsp;
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="form-control w5" type="number" min="0" max="100" value=0 id="duty_ion"/>
+                                            <span class="input-group-addon hide_it"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="hide_it"></input>
+                                            <span class="input-group-addon form_control" translate>&#37;</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            &nbsp;&nbsp;
+                            <button onclick="dutyIon()" class="btn btn-danger">
+                                <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                    <g transform="translate(50,1200) scale(1, -1)">
+                                        <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Chlorinator Cycle Period-->
+                <div class="row">
+                    <div class="col-md-4"><span>Chlorine Cycle Period</span></div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="form-control w8" type="number" min="0" max="3600000" value=0 id="cycle_chlorine"/>
+                                            <span class="input-group-addon hide_it"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="hide_it"></input>
+                                            <span class="input-group-addon form_control">ms</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            &nbsp;&nbsp;
+                            <button onclick="cycleChlorine()" class="btn btn-danger">
+                                <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                    <g transform="translate(50,1200) scale(1, -1)">
+                                        <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><!--Ionizer Cycle Period-->
+                <div class="row">
+                    <div class="col-md-4"><span>Ion Cycle Period</span></div>
+                    <div class="col-md-8">
+                        <div class="panel-flex-row">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="form-control w8" type="number" min="0" max="3600000" value=0 id="cycle_ion"/>
+                                            <span class="input-group-addon hide_it"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="hide_it"></input>
+                                            <span class="input-group-addon form_control">ms</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            &nbsp;&nbsp;
+                            <button onclick="cycleIon()" class="btn btn-danger">
+                                <svg width="1.3em" height="1.2em" viewBox="0 0 1300 1200">
+                                    <g transform="translate(50,1200) scale(1, -1)">
+                                        <path fill="currentColor" d="M465 477l571 571q8 8 18 8t17 -8l177 -177q8 -7 8 -17t-8 -18l-783 -784q-7 -8 -17.5 -8t-17.5 8l-384 384q-8 8 -8 18t8 17l177 177q7 8 17 8t18 -8l171 -171q7 -7 18 -7t18 7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

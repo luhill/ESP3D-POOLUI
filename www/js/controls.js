@@ -140,6 +140,7 @@ function Control_get_position_value(label, result_data) {
 }
 
 function process_Position(response) {
+    console.log("controller response" + response);
     if ((target_firmware == "grbl") || (target_firmware == "grbl-embedded")) {
         process_grbl_position(response);
     } else {
