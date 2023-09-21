@@ -9,9 +9,15 @@
   "audiofeedback": false,
   "showinformationpage": true,
   "showmachinesettings": true,
+  "enableautorepeat": false,
+  "autorepeatdelay": "500",
   "emergencystop": "M112",
   "fixedpanels": true,
   "panelsorder": [
+   {
+    "id": "MyPanel",
+    "name": "My Panel"
+   },
    {
     "id": "Files",
     "name": "files"
@@ -59,20 +65,31 @@
    }
   ],
   "enablepolling": false,
-  "pollingrefresh": "3000",
-  "pollingcommands": "M105",
+  "pollingcmds": [
+   {
+    "id": "samplepolling",
+    "name": "3s",
+    "cmds": "M105",
+    "refreshtime": "3000"
+   }
+  ],
   "showterminalpanel": true,
   "openterminalonstart": true,
   "verbose": true,
   "autoscroll": true,
-  "showfilespanel": true,
+  "showfilespanel": false,
   "openfilesonstart": true,
   "filesfilter": "g;G;gco;GCO;gcode;GCODE",
+  "flashfs": true,
   "tftsd": false,
   "tftusb": false,
   "sd": false,
   "showjogpanel": true,
   "openjogonstart": true,
+  "swap_x_y": false,
+  "invert_x": false,
+  "invert_y": false,
+  "invert_z": false,
   "xyfeedrate": "1000",
   "zfeedrate": "1000",
   "xpos": "100",
@@ -80,16 +97,108 @@
   "zpos": "100",
   "homecmd": "G28 $",
   "motoroff": "M84",
-  "shownotificationspanel": true,
+  "keymap": [
+   {
+    "id": "btn+X",
+    "name": "btn+X",
+    "key": "ArrowRight"
+   },
+   {
+    "id": "btn-X",
+    "name": "btn-X",
+    "key": "ArrowLeft"
+   },
+   {
+    "id": "btnHX",
+    "name": "btnHX",
+    "key": "X"
+   },
+   {
+    "id": "btn+Y",
+    "name": "btn+Y",
+    "key": "ArrowUp"
+   },
+   {
+    "id": "btn-Y",
+    "name": "btn-Y",
+    "key": "ArrowDown"
+   },
+   {
+    "id": "btnHY",
+    "name": "btnHY",
+    "key": "Y"
+   },
+   {
+    "id": "btn+Z",
+    "name": "btn+Z",
+    "key": "PageUp"
+   },
+   {
+    "id": "btn-Z",
+    "name": "btn-Z",
+    "key": "PageDown"
+   },
+   {
+    "id": "btnHZ",
+    "name": "btnHZ",
+    "key": "Z"
+   },
+   {
+    "id": "btnHXYZ",
+    "name": "btnHXYZ",
+    "key": "Home"
+   },
+   {
+    "id": "btnMoveXY",
+    "name": "btnMoveXY",
+    "key": "P"
+   },
+   {
+    "id": "btnMoveZ",
+    "name": "btnMoveZ",
+    "key": "End"
+   },
+   {
+    "id": "btnMotorOff",
+    "name": "btnMotorOff",
+    "key": "M"
+   },
+   {
+    "id": "move_100",
+    "name": "move_100",
+    "key": "1"
+   },
+   {
+    "id": "move_10",
+    "name": "move_10",
+    "key": "2"
+   },
+   {
+    "id": "move_1",
+    "name": "move_1",
+    "key": "3"
+   },
+   {
+    "id": "move_0_1",
+    "name": "move_0_1",
+    "key": "4"
+   },
+   {
+    "id": "btnEStop",
+    "name": "btnEStop",
+    "key": "Delete"
+   }
+  ],
+  "shownotificationspanel": false,
   "opennotificationsonstart": false,
   "notifautoscroll": true,
-  "showmacrospanel": true,
+  "showmacrospanel": false,
   "openmacrosonstart": false,
   "macros": [],
   "showextracontents": false,
   "openextrapanelsonstart": false,
   "extracontents": [],
-  "showstatuspanel": true,
+  "showstatuspanel": false,
   "openstatusonstart": true,
   "sdpausecmd": "M25",
   "sdresumecmd": "M24",
@@ -100,6 +209,8 @@
   "tftusbpausecmd": "M25",
   "tftusbresumecmd": "M24",
   "tftusbstopcmd": "M524",
+  "showMyPanel": true,
+  "openMyPanelOnStart": true,
   "showtemperaturespanel": true,
   "opentemperaturesonstart": true,
   "showextruderctrls": true,
@@ -126,14 +237,14 @@
   "showprobechart": true,
   "showboardchart": true,
   "showsensorchart": true,
-  "showextruderspanel": true,
+  "showextruderspanel": false,
   "openextrudersonstart": true,
   "efeedrate": "400",
   "extruderdistance": "5;10;100",
   "ismixedextruder": false,
   "enumber": "1",
   "ecolors": "blue;red;green;#FF00FF;cyan;black",
-  "showextracontrolspanel": true,
+  "showextracontrolspanel": false,
   "openextracontrolsonstart": true,
   "showfanctrls": true,
   "fanpresets": "0;20;50;75;100",

@@ -187,6 +187,85 @@ const commandsQuery = (req, res, SendWS) => {
     }
     lastconnection = Date.now()
 
+    if (url.indexOf("P8 ") != -1){
+        //let on = '1'
+        //if (url.indexOf("0") !=-1) on = '0'
+        //let i = url.indexOf('p":')
+        let p = url.substring(4,5)
+        let d = url.substring(6,8)
+        SendWS(
+            '{"myPanel":{"values":{' +
+             '"chlorine":[' + p + ','+d+']'+
+            '}}}\n'
+        )
+        res.send("");
+        return
+    }
+    if (url.indexOf("P113") != -1){
+        SendWS(
+            '{"myPanel":{"name":"Custom Panel Name","ui":{' +
+            '"time_current":{' +
+            '"type":"datetime-local",'+
+            '"label":"Time",'+
+            '"cmd":"P0"' +
+            '},"auto":{'+
+            '"type":"onStartStop",'+
+            '"label":"Auto",'+
+            '"cmd":"P5"' +
+            '},"pump":{'+
+            '"type":"boolean",'+
+            '"label":"Pump",'+
+            '"cmd":"P1"' +
+            '},"chlorine":{' +
+            '"type":"onDuty",'+
+            '"label":"Chlorinator",'+
+            '"cmd":"P8"' +
+            '},"ion":{' +
+            '"type":"onDuty",'+
+            '"label":"Ionizer",'+
+            '"cmd":"P9"' +
+            '},"cycle_chlorine":{' +
+            '"type":"number",'+
+            '"label":"Chlorine Period",'+
+            '"append":"sec",' +
+            '"cmd":"P11"' +
+            '},"cycle_ion":{' +
+            '"type":"number",'+
+            '"label":"Ion Period",'+
+            '"append":"sec",' +
+            '"cmd":"P11"' +
+            '}}}}\n'
+        )
+        res.send("");
+        return
+    }
+    if (url.indexOf("P114") != -1){
+        SendWS(
+            '{"myPanel":{"values":{' + 
+             '"time_current":"2023-09-06T08:29:57",' +
+             '"pump":0,' +
+             '"auto":[1,36000,36060],' +
+             '"booster_on":0,' +
+             '"auto_on":1,' +
+             '"chlorine":[0,60],' +
+             '"ion":[0,50],' +
+             '"cycle_chlorine":1000,' +
+             '"cycle_ion":1000' +
+            '}}}\n'
+        )
+        res.send("");
+        return
+    }
+    if (url.indexOf("P115") != -1){
+        SendWS(
+            '{"myPanel":{"values":{' +
+             '"pump_on": 1,' +
+             '"duty_chlorine": 93' +
+            '}}}\n'
+        )
+        res.send("");
+        return
+    }
     if (url.indexOf("M114") != -1) {
         let X = Number(Math.random() * 200.12).toFixed(2)
         let Y = Number(Math.random() * 200.12).toFixed(2)

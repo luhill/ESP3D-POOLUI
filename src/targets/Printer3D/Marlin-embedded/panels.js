@@ -28,8 +28,10 @@ import { NotificationsPanelElement } from "../../../components/Panels/Notificati
 import { ChartsPanelElement } from "../../../components/Panels/Charts"
 import { StatusPanelElement } from "../../../components/Panels/Status"
 import { ExtraControlsPanelElement } from "../../../components/Panels/ExtraControls"
+import { MyPanelElement } from "../../../components/Panels/MyPanel"
 
 const defaultPanelsList = [
+    MyPanelElement,
     FilesPanelElement,
     TerminalPanelElement,
     MacrosPanelElement,

@@ -29,6 +29,7 @@
                 "type": "list",
                 "label": "S202",
                 "value": [
+                    { "id": "MyPanel", "name": "My Panel"},
                     { "id": "Files", "name": "files" },
                     { "id": "Terminal", "name": "terminal" },
                     { "id": "Jog", "name": "jog", "value": "jog" },

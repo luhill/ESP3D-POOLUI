@@ -14,6 +14,20 @@
                 "value": true
             }
         ],
+        "My Panel":[
+            {
+                "id": "showMyPanel",
+                "type": "boolean",
+                "label": "S63",
+                "value": true
+            },
+            {
+                "id": "openMyPanelOnStart",
+                "type": "boolean",
+                "label": "S93",
+                "value": true
+            }
+        ],
         "temperatures": [
             {
                 "id": "showtemperaturespanel",

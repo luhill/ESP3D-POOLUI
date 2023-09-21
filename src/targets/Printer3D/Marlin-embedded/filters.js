@@ -22,6 +22,39 @@ import { useSettingsContextFn } from "../../../contexts"
 
 ////////////////////////////////////////////////////////
 //
+//Pool
+//{"myPanel":{"ui":{"pump":{"type":boolean, "label":"Pump"}}}}
+//{"myPanel":{"values:{"pump":1, "chlorine":[0,50]}}}
+const isMyPanel = (str) => {
+    const regex_search = /{"myPanel"/g
+    return regex_search.test(str);
+}
+const getMyPanel = (str,myPanel) => {
+    const j = JSON.parse(str);
+    if("ui" in j.myPanel){
+        if(myPanel.ui==null){
+            myPanel.ui = j.myPanel.ui
+        }else{
+            for(var key in j.myPanel.ui){
+                myPanel.ui.key = j.myPanel.ui.key
+            }
+        }
+    }
+    if("values" in j.myPanel){
+        if(myPanel.values==null){
+            myPanel.values = j.myPanel.values
+        }else{
+            for(var key in j.myPanel.values){
+                myPanel.values.key = j.myPanel.values.key
+            }
+        }
+    }
+    if("name" in j.myPanel){
+        myPanel.name = j.myPanel.name
+    }
+}
+////////////////////////////////////////////////////////
+//
 //Temperatures
 
 //Marlin Temperatures
@@ -30,6 +63,7 @@ import { useSettingsContextFn } from "../../../contexts"
 //T:25.00 /50.00 B:25.00 /0.00 T0:25.00 /50.00 T1:25.00 /0.00 @:127 B@:0 @0:127 @1:0 W:?
 //T:25.00 /0.00 B:25.00 /50.00 T0:25.00 /0.00 T1:25.00 /0.00 @:0 B@:127 @0:0 @1:0
 //echo:busy: processing
+
 
 const isTemperatures = (str) => {
     const regex_search = /T:.*\s@:[0-9]*/g
@@ -300,6 +334,8 @@ const getSensor = (str) => {
 }
 
 export {
+    isMyPanel,
+    getMyPanel,
     isTemperatures,
     getTemperatures,
     isPositions,

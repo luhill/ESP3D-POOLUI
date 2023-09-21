@@ -28,6 +28,8 @@ import { useDatasContext } from "../../../contexts"
 import { processor } from "./processor"
 import { isVerboseOnly } from "./stream"
 import {
+    isMyPanel,
+    getMyPanel,
     isTemperatures,
     getTemperatures,
     isPositions,
@@ -88,6 +90,12 @@ const TargetContextProvider = ({ children }) => {
 
     //status has 3 scope : print status, printing filename, state of printer
     const [status, setStatus] = useState(globalStatus.current)
+    const myPanel = useRef({
+        name:"",
+        ui:{},
+        values:{}
+    })
+    if(myPanel.name == null) myPanel.name = "...Loading..."
 
     //format tool:["0":{current:xxx target:xxx}, "1":{current:xxx target:xxx}, ...]
     //index is same as printer
@@ -169,7 +177,9 @@ const TargetContextProvider = ({ children }) => {
         //sensors
 
         if (type === "stream") {
-            if (isTemperatures(data)) {
+            if(isMyPanel(data)){
+                getMyPanel(data,myPanel)
+            }else if (isTemperatures(data)) {
                 const t = getTemperatures(data)
                 setTemperatures(t)
                 add2TemperaturesList({ temperatures: t, time: new Date() })
@@ -329,6 +339,7 @@ const TargetContextProvider = ({ children }) => {
     useTargetContextFn.processData = processData
 
     const store = {
+        myPanel,
         positions,
         temperatures,
         temperaturesList: {
