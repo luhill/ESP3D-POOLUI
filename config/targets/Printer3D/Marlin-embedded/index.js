@@ -187,10 +187,23 @@ const commandsQuery = (req, res, SendWS) => {
     }
     lastconnection = Date.now()
 
+    if (url.indexOf("P1 ") != -1){
+        let p = url.substring(3,4)
+        let c = ""
+        if(p==0){
+            c = ',"chlorine":[0,50]'
+        }
+        SendWS(
+            '{"myPanel":{"values":{'+
+             '"pump":'+p+
+             c+
+            '}}}\n'
+        )
+        res.send("");
+        return
+    }
+
     if (url.indexOf("P8 ") != -1){
-        //let on = '1'
-        //if (url.indexOf("0") !=-1) on = '0'
-        //let i = url.indexOf('p":')
         let p = url.substring(4,5)
         let d = url.substring(6,8)
         SendWS(
@@ -233,7 +246,10 @@ const commandsQuery = (req, res, SendWS) => {
             '"type":"number",'+
             '"label":"Ion Period",'+
             '"append":"sec",' +
-            '"cmd":"P11"' +
+            '"cmd":"P12"' +
+            '},"temps":{' +
+            '"type":"temps",'+
+            '"cmd":"P13"' +
             '}}}}\n'
         )
         res.send("");
@@ -250,7 +266,8 @@ const commandsQuery = (req, res, SendWS) => {
              '"chlorine":[0,60],' +
              '"ion":[0,50],' +
              '"cycle_chlorine":1000,' +
-             '"cycle_ion":1000' +
+             '"cycle_ion":1000,' +
+             '"temps":[{"l":"ambient", "v":24.2},{"l":"outlet", "v":27.1},{"l":"inlet", "v":23.2}]' +
             '}}}\n'
         )
         res.send("");

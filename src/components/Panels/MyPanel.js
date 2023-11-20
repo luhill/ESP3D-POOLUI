@@ -16,6 +16,18 @@ Temperatures.js - ESP3D WebUI component file
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/*
+    LUKE use the following npm commands:
+    to start dev server:
+        npm run dev-printer-marlin-embedded
+
+    to build index.html.gz:
+        npm run printer-marlin-embedded
+        
+    see readme for more options
+*/
+
+
 import { Fragment, h } from "preact"
 import { T } from "../Translations"
 import { useUiContext, useUiContextFn } from "../../contexts"
@@ -64,14 +76,23 @@ const MyControls = () => {
             if (val == true || val == false) {
                 val += 0//cast to integer
                 //for switches handle the send command directly
-                //sendCommand(ui[key].cmd + ' ' + val)
+                values[key] = val
                 sendCommand(toolCmd(key))
+                return
             }
             values[key] = val
-            console.log(key + ":" + val)
         }
     }
-    
+    const getVal = (key,i) =>{
+        if(values!=null && key in values){
+            if(i==undefined){
+                return values[key]
+            }else{
+                return values[key][i]
+            }
+        }
+        return null
+    }
     const controlForTool = (tool) => {
         switch (ui[tool].type) {
             case "onDuty"://switch, 0-100%input, send button
@@ -85,7 +106,7 @@ const MyControls = () => {
                             <div>
                                 <Field
                                     type="boolean"
-                                    value={values[tool][0]}
+                                    value={getVal(tool,0)}
                                     id={'switch' + tool}
                                     setValue={(val, update) => {
                                         if (val == null) return
@@ -98,7 +119,7 @@ const MyControls = () => {
                             <div>
                                 <Field
                                     type="number"
-                                    value={values[tool][1]}
+                                    value={getVal(tool,1)}
                                     append="%"
                                     style="width: 3rem"
                                     setValue={(val, update) => {
@@ -123,7 +144,7 @@ const MyControls = () => {
                             <div>
                                 <Field
                                     type="boolean"
-                                    value={values[tool][0]}
+                                    value={getVal(tool,0)}
                                     id={'switch' + tool}
                                     setValue={(val, update) => {
                                         if (val == null) return
@@ -137,7 +158,7 @@ const MyControls = () => {
                                     type="time"
                                     step="60"
                                     style="width: 6rem"
-                                    value={new Date(values[tool][1] * 1000).toISOString().substring(11, 16)}
+                                    value={new Date(getVal(tool,1) * 1000).toISOString().substring(11, 16)}
                                     id={'tStart' + tool}
                                     setValue={(val, update) => {
                                         if (val == null) return
@@ -152,7 +173,7 @@ const MyControls = () => {
                                     type="time"
                                     step="60"
                                     style="width: 6rem"
-                                    value={new Date(values[tool][2] * 1000).toISOString().substring(11, 16)}
+                                    value={new Date(getVal(tool,2) * 1000).toISOString().substring(11, 16)}
                                     setValue={(val, update) => {
                                         if (val == null) return
                                         let sec = val.split(':'); // split it at the colons
@@ -165,6 +186,30 @@ const MyControls = () => {
                     </div>
                 )
                 break;
+            case "temps": //label, number, no button
+                return (
+                    <div class="temperatures-ctrls">
+                        <Fragment>
+                        {values[tool].map((temp) => {
+                            return(
+                            <div
+                                class="temperatures-ctrl mt-1 tooltip tooltip-bottom"
+                                data-tooltip={temp.l + " temperature"} 
+                            >
+                                <div class="temperatures-header">
+                                {temp.l}
+                                </div>
+                                <div class="temperatures-value">
+                                    {temp.v} °C
+                                </div>
+
+                            </div>
+                            )
+                        })}
+                        </Fragment>
+                    </div>
+                )
+            break;
             case "boolean"://switch
                 return (
                     <div>
@@ -182,7 +227,7 @@ const MyControls = () => {
             case "number"://number, send button
                 return (
                     <div>
-                        {defaultControl(tool, true, "width: 3.75rem")}
+                        {defaultControl(tool, false, "width: 3.75rem")}
                     </div>
                 )
                 break;
@@ -222,7 +267,7 @@ const MyControls = () => {
                     <div>
                         <Field
                             type={ui[tool].type}
-                            value={values[tool]}
+                            value={getVal(tool)}
                             append={ui[tool].append}
                             style={cStyle}
                             setValue={(val, update) => { setVal(tool, val) }}
@@ -257,8 +302,7 @@ const MyPanel = () => {
                 toasts.addToast({ content: error, type: "error" })
                 console.log(error)
             },
-        }
-        )
+        })
     }
     
     const ready = myPanel.ui != null

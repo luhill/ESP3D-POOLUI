@@ -91,9 +91,9 @@ const TargetContextProvider = ({ children }) => {
     //status has 3 scope : print status, printing filename, state of printer
     const [status, setStatus] = useState(globalStatus.current)
     const myPanel = useRef({
-        name:"",
         ui:{},
-        values:{}
+        values:{},
+        name:""
     })
     if(myPanel.name == null) myPanel.name = "...Loading..."
 

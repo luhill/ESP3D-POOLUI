@@ -31,12 +31,13 @@ const isMyPanel = (str) => {
 }
 const getMyPanel = (str,myPanel) => {
     const j = JSON.parse(str);
+
     if("ui" in j.myPanel){
         if(myPanel.ui==null){
             myPanel.ui = j.myPanel.ui
         }else{
             for(var key in j.myPanel.ui){
-                myPanel.ui.key = j.myPanel.ui.key
+                myPanel.ui[key] = j.myPanel.ui[key]
             }
         }
     }
@@ -45,7 +46,7 @@ const getMyPanel = (str,myPanel) => {
             myPanel.values = j.myPanel.values
         }else{
             for(var key in j.myPanel.values){
-                myPanel.values.key = j.myPanel.values.key
+                myPanel.values[key] = j.myPanel.values[key]
             }
         }
     }
